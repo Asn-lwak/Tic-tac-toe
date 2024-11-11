@@ -2,6 +2,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const startButton = document.getElementById("start-button");
     const board = document.querySelector(".board");
     const result = document.getElementById("result");
+    const currentPlayerDisplay = document.getElementById("current-player");
     let currentPlayer = "X";
     let boardArray = ["", "", "", "", "", "", "", "", ""];
 
@@ -42,6 +43,7 @@ document.addEventListener("DOMContentLoaded", function () {
             boardArray[cellIndex] = currentPlayer;
             cell.textContent = currentPlayer;
             currentPlayer = currentPlayer === "X" ? "O" : "X";
+            currentPlayerDisplay.textContent = `Current Player: ${currentPlayer}`;
 
             const winner = checkWinner();
             if (winner) {
@@ -58,6 +60,7 @@ document.addEventListener("DOMContentLoaded", function () {
         boardArray = ["", "", "", "", "", "", "", "", ""];
         result.textContent = "";
         currentPlayer = "X";
+        currentPlayerDisplay.textContent = `Current Player: ${currentPlayer}`;
 
         while (board.firstChild) {
             board.removeChild(board.firstChild);
