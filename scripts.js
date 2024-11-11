@@ -74,7 +74,6 @@ document.addEventListener("DOMContentLoaded", function () {
       cells[i].style.backgroundColor = "#eee";
     }
   }
-
-startButton.addEventListener("click", startGame);
+   startButton.addEventListener("click", startGame);
 });
 </script>
