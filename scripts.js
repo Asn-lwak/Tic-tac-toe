@@ -36,25 +36,25 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 
   function handleClick(event) {
-    const cell = event.target;
-    const cellIndex = Array.from(board.children).indexOf(cell);
+  const cell = event.target;
+  const cellIndex = Array.from(board.children).indexOf(cell);
 
-    if (boardArray[cellIndex] === "" && !checkWinner()) {
-      boardArray[cellIndex] = currentPlayer;
-      cell.textContent = currentPlayer;
-      currentPlayer = currentPlayer === "X" ? "O" : "X";
+  if (boardArray[cellIndex] === "" && !checkWinner()) {
+    boardArray[cellIndex] = currentPlayer;
+    cell.textContent = currentPlayer;
+    currentPlayer = currentPlayer === "X" ? "O" : "X";
 
-      const winner = checkWinner();
-      if (winner) {
-        if (winner === "Tie") {
-          result.textContent = "It's a tie!";
-        } else {
-          result.textContent = ${winner} wins!;
-        }
+    const winner = checkWinner();
+    if (winner) {
+      if (winner === "Tie") {
+        result.textContent = "It's a tie!";
+      } else {
+        result.textContent = `${winner} wins!`; // Corrected line
       }
     }
   }
-
+  }
+  
   function startGame() {
     boardArray = ["", "", "", "", "", "", "", "", ""];
     board.textContent = "";
