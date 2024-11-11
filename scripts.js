@@ -1,10 +1,22 @@
 document.addEventListener("DOMContentLoaded", function () {
+    const singlePlayerButton = document.getElementById("single-player-button");
+    const twoPlayerButton = document.getElementById("two-player-button");
     const startButton = document.getElementById("start-button");
+    const resetButton = document.getElementById("reset-button");
+    const backButton = document.getElementById("back-button");
+    const modeSelection = document.getElementById("mode-selection");
+    const gameControls = document.getElementById("game-controls");
     const board = document.querySelector(".board");
     const result = document.getElementById("result");
     const currentPlayerDisplay = document.getElementById("current-player");
     let currentPlayer = "X";
     let boardArray = ["", "", "", "", "", "", "", "", ""];
+    let gameMode = "";
+
+    function logMessage(message) {
+        console.log(message);
+        alert(message); // Use alerts to ensure messages are seen
+    }
 
     function checkWinner() {
         const winPatterns = [
@@ -51,13 +63,41 @@ document.addEventListener("DOMContentLoaded", function () {
                     result.textContent = `${winner} wins!`;
                 }
             } else {
-                currentPlayer = currentPlayer === "X" ? "O" : "X";
+                if (gameMode === "single") {
+                    currentPlayer = "O";
+                    currentPlayerDisplay.textContent = `Current Player: ${currentPlayer}`;
+                    aiMove();
+                } else {
+                    currentPlayer = currentPlayer === "X" ? "O" : "X";
+                    currentPlayerDisplay.textContent = `Current Player: ${currentPlayer}`;
+                }
+            }
+        }
+    }
+
+    function aiMove() {
+        let emptyCells = boardArray.map((val, index) => val === "" ? index : null).filter(val => val !== null);
+        if (emptyCells.length > 0 && !checkWinner()) {
+            let randomIndex = emptyCells[Math.floor(Math.random() * emptyCells.length)];
+            boardArray[randomIndex] = currentPlayer;
+            board.children[randomIndex].textContent = currentPlayer;
+
+            const winner = checkWinner();
+            if (winner) {
+                if (winner === "Tie") {
+                    result.textContent = "It's a tie!";
+                } else {
+                    result.textContent = `${winner} wins!`;
+                }
+            } else {
+                currentPlayer = "X";
                 currentPlayerDisplay.textContent = `Current Player: ${currentPlayer}`;
             }
         }
     }
 
     function startGame() {
+        logMessage("Starting game...");
         boardArray = ["", "", "", "", "", "", "", "", ""];
         result.textContent = "";
         currentPlayer = "X";
@@ -69,18 +109,43 @@ document.addEventListener("DOMContentLoaded", function () {
 
         for (let i = 0; i < 9; i++) {
             const cell = document.createElement("div");
+            cell.classList.add("cell");
             cell.addEventListener("click", handleClick);
-            cell.style.backgroundColor = "#eee";
-            cell.style.width = "100px";
-            cell.style.height = "100px";
-            cell.style.display = "inline-block";
-            cell.style.border = "1px solid #000";
-            cell.style.fontSize = "2em";
-            cell.style.textAlign = "center";
-            cell.style.lineHeight = "100px";
             board.appendChild(cell);
         }
     }
 
+    singlePlayerButton.addEventListener("click", function () {
+        gameMode = "single";
+        modeSelection.style.display = "none";
+        gameControls.style.display = "block";
+    });
+
+    twoPlayerButton.addEventListener("click", function () {
+        gameMode = "two";
+        modeSelection.style.display = "none";
+        gameControls.style.display = "block";
+    });
+
     startButton.addEventListener("click", startGame);
+
+    resetButton.addEventListener("click", function () {
+    const confirmReset = window.confirm("Are you sure you want to reset the game?");
+    if (confirmReset) {
+        startGame();
+    }
+});
+
+
+    backButton.addEventListener("click", function () {
+        modeSelection.style.display = "block";
+        gameControls.style.display = "none";
+        boardArray = ["", "", "", "", "", "", "", "", ""];
+        result.textContent = "";
+        currentPlayer = "X";
+        currentPlayerDisplay.textContent = `Current Player: ${currentPlayer}`;
+        while (board.firstChild) {
+            board.removeChild(board.firstChild);
+        }
+    });
 });
