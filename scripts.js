@@ -1,3 +1,4 @@
+<script>
 document.addEventListener("DOMContentLoaded", function () {
   const startButton = document.getElementById("start-button");
   const board = document.querySelector(".board");
@@ -74,5 +75,6 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   }
 
-  startButton.addEventListener("click", startGame);
+startButton.addEventListener("click", startGame);
 });
+</script>
