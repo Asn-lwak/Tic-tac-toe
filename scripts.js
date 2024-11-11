@@ -42,8 +42,6 @@ document.addEventListener("DOMContentLoaded", function () {
         if (boardArray[cellIndex] === "" && !checkWinner()) {
             boardArray[cellIndex] = currentPlayer;
             cell.textContent = currentPlayer;
-            currentPlayer = currentPlayer === "X" ? "O" : "X";
-            currentPlayerDisplay.textContent = `Current Player: ${currentPlayer}`;
 
             const winner = checkWinner();
             if (winner) {
@@ -52,6 +50,9 @@ document.addEventListener("DOMContentLoaded", function () {
                 } else {
                     result.textContent = `${winner} wins!`;
                 }
+            } else {
+                currentPlayer = currentPlayer === "X" ? "O" : "X";
+                currentPlayerDisplay.textContent = `Current Player: ${currentPlayer}`;
             }
         }
     }
@@ -59,7 +60,7 @@ document.addEventListener("DOMContentLoaded", function () {
     function startGame() {
         boardArray = ["", "", "", "", "", "", "", "", ""];
         result.textContent = "";
-        currentPlayer = "";
+        currentPlayer = "X";
         currentPlayerDisplay.textContent = `Current Player: ${currentPlayer}`;
 
         while (board.firstChild) {
