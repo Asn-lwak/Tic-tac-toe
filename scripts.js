@@ -56,22 +56,23 @@ document.addEventListener("DOMContentLoaded", function () {
   }
   
   function startGame() {
-    boardArray = ["", "", "", "", "", "", "", "", ""];
-    board.textContent = "";
-    result.textContent = "";
-    currentPlayer = "X";
+  console.log("startGame function called"); // Debugging line
+  boardArray = ["", "", "", "", "", "", "", "", ""];
+  board.textContent = "";
+  result.textContent = "";
+  currentPlayer = "X";
 
-    for (let i = 0; i < 9; i++) {
-      const cell = document.createElement("div");
-      cell.addEventListener("click", handleClick);
-      board.appendChild(cell);
-    }
+  for (let i = 0; i < 9; i++) {
+    const cell = document.createElement("div");
+    cell.addEventListener("click", handleClick);
+    board.appendChild(cell);
+  }
 
-    // Hapus latar belakang dari semua kotak
-    const cells = board.children;
-    for (let i = 0; i < cells.length; i++) {
-      cells[i].style.backgroundColor = "#eee";
-    }
+  // Hapus latar belakang dari semua kotak
+  const cells = board.children;
+  for (let i = 0; i < cells.length; i++) {
+    cells[i].style.backgroundColor = "#eee";
+  }
   }
 
   startButton.addEventListener("click", startGame);
