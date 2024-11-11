@@ -60,7 +60,7 @@ document.addEventListener("DOMContentLoaded", function () {
     function startGame() {
         boardArray = ["", "", "", "", "", "", "", "", ""];
         result.textContent = "";
-        currentPlayer = "X";
+        currentPlayer = currentPlayer === "X" ? "O" : "X";
         currentPlayerDisplay.textContent = `Current Player: ${currentPlayer}`;
 
         while (board.firstChild) {
